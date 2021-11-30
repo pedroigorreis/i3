@@ -1,0 +1,125 @@
+set $ws1 ""
+set $ws2 ""
+set $ws3 ""
+set $ws4 ""
+set $ws5 ""
+set $ws6 ""
+set $ws7 ""
+set $mod Mod4
+set $term alacritty
+set $Sistema   [B]loquear   [S]air    [D]esligar
+set $run dmenu_run -i -fn "Fira Sans:style=Regular:size=10" -nb "#272727" -sb "#15539e"
+set $drun i3-dmenu-desktop --dmenu='dmenu -i -fn "Fira Sans:style=Regular:size=10" -nb "#272727" -sb "#15539e"'
+
+font pango:Fira Sans 10
+
+floating_modifier Mod1
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+
+bindsym XF86Tools exec --no-startup-id pavucontrol
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+
+bindsym XF86Mail exec --no-startup-id xdg-open https://mail.protonmail.com/u/0/inbox
+
+bindsym XF86Search exec --no-startup-id $drun
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+
+bindsym $mod+q kill
+bindsym $mod+Return exec $term
+bindsym $mod+d exec --no-startup-id $drun
+bindsym $mod+Shift+d exec --no-startup-id $run
+
+bindsym $mod+Up focus up
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+space split toggle
+
+bindsym $mod+F11 fullscreen toggle
+bindsym $mod+shift+a floating toggle
+
+bindsym $mod+a focus parent
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec i3-msg exit
+
+bindsym --release shift+Print exec --no-startup-id maim -s -u $HOME/Prints/$(date "+%Y-%m-%d-%H:%M:%S").png && notify-send -i /usr/share/icons/Papirus/32x32/apps/screengrab.svg "Captura de Tela" "Salvo em $HOME/Prints"
+bindsym --release Print exec --no-startup-id maim -u $HOME/Prints/$(date "+%Y-%m-%d-%H:%M:%S").png && notify-send -i /usr/share/icons/Papirus/32x32/apps/screengrab.svg "Captura de Tela" "Salvo em $HOME/Prints"
+
+mode "$Sistema"
+{
+	bindsym s exec --no-startup-id i3-msg exit, mode "default"
+	bindsym d exec --no-startup-id loginctl poweroff, mode "default"
+	bindsym b exec --no-startup-id i3lock --nofork -i /usr/share/backgrounds/wp.png, mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+Pause mode "$Sistema"
+
+exec --no-startup-id ~/.fehbg
+exec --no-startup-id numlockx
+exec --no-startup-id xsettingsd
+exec --no-startup-id picom --experimental-backends
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i /usr/share/backgrounds/wp.png
+
+gaps inner 10
+gaps outer 10
+
+default_border pixel 0
+default_floating_border pixel 0
+
+assign [class="mpv"] → $ws6
+assign [class="Geany"] → $ws4
+assign [class="Evince"] → $ws5
+assign [class="Brave"] → $ws1
+assign [class="Pcmanfm"] → $ws3
+assign [class="Anydesk"] → $ws7
+assign [class="Alacritty"] → $ws2
+assign [class="Pavucontrol"] → $ws6
+
+bar
+{
+	colors
+	{
+		statusline #292929
+		background #00000000
+		active_workspace #000000 #000000 #eeeeee
+		urgent_workspace #00000000 #00000000 #15539e
+		focused_workspace #00000000 #00000000 #eeeeee
+		inactive_workspace #00000000 #00000000 #292929
+	}
+	position bottom
+	tray_padding 5
+	separator_symbol " "
+	i3bar_command i3bar -t
+	font pango:Fira Sans 10
+	status_command i3status -c ~/.config/i3/i3status.conf
+}

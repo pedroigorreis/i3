@@ -1,0 +1,95 @@
+[global]
+	monitor = 0
+	follow = mouse
+
+	origin = bottom-right
+
+	progress_bar = true
+	progress_bar_height = 10
+	progress_bar_frame_width = 1
+	progress_bar_min_width = 150
+	progress_bar_max_width = 300
+
+	indicate_hidden = yes
+
+	shrink = no
+
+	padding = 8
+	transparency = 0
+	separator_height = 2
+
+	horizontal_padding = 8
+
+	text_icon_padding = 10
+
+	frame_width = 1
+
+	separator_color = frame
+	frame_color = "#15539e"
+	separator_color = "#15539e"
+
+	sort = yes
+
+	markup = full
+	word_wrap = yes
+	line_height = 0
+	font = Fira Sans 10
+	alignment = left
+	ellipsize = middle
+	show_age_threshold = 60
+	format = "<b>%s</b>\n%b"
+	vertical_alignment = center
+
+	ignore_newline = no
+
+	stack_duplicates = true
+
+	hide_duplicate_count = true
+
+	show_indicators = no
+
+	min_icon_size = 0
+	max_icon_size = 32
+	icon_position = left
+
+	sticky_history = yes
+	history_length = 20
+
+	browser = xdg-open
+
+	always_run_script = true
+
+	title = Dunst
+
+	class = Dunst
+
+	corner_radius = 2
+
+	ignore_dbusclose = false
+
+	force_xwayland = false
+
+	force_xinerama = false
+
+	mouse_right_click = close_all
+	mouse_left_click = close_current
+	mouse_middle_click = do_action, close_current
+
+	idle_threshold = 120
+	icon_path = /usr/share/icons/Papirus-Dark/32x32/status/:/usr/share/icons/Papirus-Dark/32x32/actions/:/usr/share/icons/Papirus-Dark/32x32/status/
+
+[urgency_low]
+	background = "#292929"
+	foreground = "#f7f7f7"
+	timeout = 5
+
+[urgency_normal]
+	background = "#292929"
+	foreground = "#f7f7f7"
+	timeout = 5
+
+[urgency_critical]
+	background = "#292929"
+	foreground = "#f7f7f7"
+	timeout = 5
+
